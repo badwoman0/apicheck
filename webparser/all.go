@@ -2,26 +2,25 @@ package webparser
 
 import (
 	"apicheck/httplib"
-	"fmt"
 )
 
-func Root(requestResponse httplib.Httpchat) {
+func Root(requestResponse httplib.Httpchat) (bool, string) {
 	if isSOAPCommunication(requestResponse) {
-		fmt.Println("soap格式")
+		return true, "soap"
 	} else if isXMLRPCCommunication(requestResponse) {
-		fmt.Println("xml rpc")
+		return true, "xml rpc"
 
 	} else if isRESTfulCommunication(requestResponse) {
-		fmt.Println("restful")
+		return true, "restful"
 
 	} else if isGraphQLCommunication(requestResponse) {
-		fmt.Println("GraphQL")
-
-	} else if isSOAPCommunication(requestResponse) {
-		fmt.Println("soap")
+		return true, "GraphQL"
 
 	} else if isGRPCCommunication(requestResponse) {
-		fmt.Println("Grpc")
+		return true, "Grpc"
 
+	} else {
+		return false, ""
 	}
+
 }
